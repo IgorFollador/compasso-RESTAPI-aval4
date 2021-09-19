@@ -1,5 +1,7 @@
 package br.com.compasso.partidos.service;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.compasso.partidos.constant.Ideologia;
 import br.com.compasso.partidos.dto.PartidoDTO;
 import br.com.compasso.partidos.dto.PartidoFormDTO;
 import br.com.compasso.partidos.entity.Partido;
@@ -30,10 +33,21 @@ public class PartidoServiceImpl implements PartidoService{
 	}
 
 	@Override
-	public Page<PartidoDTO> findAll(Pageable page) {
+	public Page<PartidoDTO> find(Pageable page, String ideologiaS) {
+		if(ideologiaS != null) {
+			ideologiaS = ideologiaS.toUpperCase();
+			Ideologia ideologia = Ideologia.valueOf(ideologiaS);
+			Page<Partido> partidos = this.repository.findByIdeologia(page, ideologia);
+			Page<PartidoDTO> partidoDTOS = partidos.map(PartidoDTO::new);
+			return partidoDTOS;
+		}
 		Page<Partido> partidos = this.repository.findAll(page);
-		Page<PartidoDTO> partidosDTOS = partidos.map(PartidoDTO::new);
-		return partidosDTOS;
+		return partidos.map(PartidoDTO::new);
+	}
+
+	@Override
+	public PartidoDTO findById(Optional<Partido> partido) {
+		return mapper.map(partido.get(), PartidoDTO.class);	 
 	}
 		
 }

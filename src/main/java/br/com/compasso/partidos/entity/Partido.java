@@ -1,16 +1,20 @@
 package br.com.compasso.partidos.entity;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.compasso.partidos.constant.Ideologia;
 import lombok.Data;
@@ -30,8 +34,9 @@ public class Partido {
 	@Enumerated(EnumType.STRING)
 	private Ideologia ideologia;
 	
-	private LocalDate dataFundacao;
+	private Date dataFundacao;
 	
-	@OneToMany
-	private List<Associado> Associados;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private List<Associado> associados = new ArrayList<>();;
 }

@@ -1,6 +1,6 @@
-package br.com.compasso.partidos.entity;
+ package br.com.compasso.partidos.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,14 +21,14 @@ import lombok.Data;
 public class Associado {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	
 	private String nome;
 
 	@Enumerated(EnumType.STRING)
 	private CargoPolitico cargoPolitico;
 	
-	private LocalDate dataNascimento;
+	private Date dataNascimento;
 	
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;

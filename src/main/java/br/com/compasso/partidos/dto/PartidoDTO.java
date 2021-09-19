@@ -1,13 +1,18 @@
 package br.com.compasso.partidos.dto;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.compasso.partidos.constant.Ideologia;
 import br.com.compasso.partidos.entity.Associado;
 import br.com.compasso.partidos.entity.Partido;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +26,10 @@ public class PartidoDTO {
 	
 	private Ideologia ideologia;
 	
-	private LocalDate dataFundacao;
+	@Setter private Date dataFundacao;
+	
+	@JsonIgnore
+	@Setter private List<Associado> associados;
 
 	public PartidoDTO(Partido partido) {
 		this.id = partido.getId();
@@ -30,6 +38,15 @@ public class PartidoDTO {
 		this.ideologia = partido.getIdeologia();
 		this.dataFundacao = partido.getDataFundacao();
 	}
-
 	
+	public String getDataFundacao() {
+		Locale locale = new java.util.Locale("pt","BR");
+		SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy", locale);
+		String dataFundacao = formater.format(this.dataFundacao);
+		return dataFundacao;
+	}
+	
+	public List<Associado> retornaAssociados() {
+		return this.associados;
+	}
 }
