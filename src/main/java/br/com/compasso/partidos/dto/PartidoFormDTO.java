@@ -8,12 +8,22 @@ import br.com.compasso.partidos.constant.Sexo;
 import lombok.Data;
 import lombok.Getter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 public class PartidoFormDTO {
-	
+
+	@NotNull @NotEmpty
 	private String nome;
+
+	@NotNull @NotEmpty
 	private String sigla;
+
+	@NotNull @NotEmpty
 	@Getter private Ideologia ideologia;
+
+	@NotNull @NotEmpty
 	@Getter private Date dataFundacao;
 
 	public void setIdeologia(String ideologiaS) {

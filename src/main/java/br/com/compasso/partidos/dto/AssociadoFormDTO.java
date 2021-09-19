@@ -8,12 +8,22 @@ import br.com.compasso.partidos.constant.Sexo;
 import lombok.Data;
 import lombok.Getter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 public class AssociadoFormDTO {
-	
+
+	@NotNull @NotEmpty
 	private String nome;
+
+	@NotNull @NotEmpty
 	@Getter private CargoPolitico cargoPolitico;
+
+	@NotNull @NotEmpty
 	@Getter private Date dataNascimento;
+
+	@NotNull @NotEmpty
 	@Getter private Sexo sexo;
 	
 	public void setCargoPolitico(String cargoPoliticoS) {
