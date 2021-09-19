@@ -16,5 +16,9 @@ public interface PartidoService {
 	Page<PartidoDTO> find(Pageable page, String ideologia);
 
 	PartidoDTO findById(Optional<Partido> partido);
+
+	PartidoDTO update(Optional<Partido> partido, PartidoFormDTO form);
+
+	void delete(Optional<Partido> partido);
 	
 }

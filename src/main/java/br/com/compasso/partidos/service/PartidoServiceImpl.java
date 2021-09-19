@@ -49,5 +49,26 @@ public class PartidoServiceImpl implements PartidoService{
 	public PartidoDTO findById(Optional<Partido> partido) {
 		return mapper.map(partido.get(), PartidoDTO.class);	 
 	}
+
+	@Override
+	@Transactional
+	public PartidoDTO update(Optional<Partido> partidoOptional, PartidoFormDTO form) {
+		Partido partido = partidoOptional.get();
+		if(form.getNome() != null)partido.setNome(form.getNome());
+		if(form.getSigla() != null)partido.setSigla(form.getSigla());
+		if(form.getIdeologia() != null)partido.setIdeologia(form.getIdeologia());
+		if(form.getDataFundacao() != null)partido.setDataFundacao(form.getDataFundacao());
+		
+		this.repository.save(partido);
+		
+		return mapper.map(partido, PartidoDTO.class);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Optional<Partido> partido) {
+		repository.deleteById(partido.get().getId());
+		return;
+	}
 		
 }

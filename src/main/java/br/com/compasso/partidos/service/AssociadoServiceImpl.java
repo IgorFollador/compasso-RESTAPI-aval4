@@ -9,14 +9,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Service;
 
 import br.com.compasso.partidos.constant.CargoPolitico;
 import br.com.compasso.partidos.dto.AssociadoDTO;
 import br.com.compasso.partidos.dto.AssociadoFormDTO;
-import br.com.compasso.partidos.dto.BindFormDTO;
-import br.com.compasso.partidos.dto.PartidoDTO;
 import br.com.compasso.partidos.entity.Associado;
 import br.com.compasso.partidos.entity.Partido;
 import br.com.compasso.partidos.repository.AssociadoRepository;
@@ -54,6 +51,7 @@ public class AssociadoServiceImpl implements AssociadoService{
 	}
 
 	@Override
+	@Transactional
 	public AssociadoDTO bind(Optional<Associado> associadoOptional, 
 			Optional<Partido> partidoOptional) {
 		Associado associado = associadoOptional.get();
@@ -92,12 +90,14 @@ public class AssociadoServiceImpl implements AssociadoService{
 	}
 
 	@Override
+	@Transactional
 	public void delete(Optional<Associado> associado) {
 		associadoRepository.deleteById(associado.get().getId());
 		return;
 	}
 
 	@Override
+	@Transactional
 	public void deleteBind(Optional<Associado> associadoOptional, 
 			Optional<Partido> partidoOptional) {
 		Associado associado = associadoOptional.get();
