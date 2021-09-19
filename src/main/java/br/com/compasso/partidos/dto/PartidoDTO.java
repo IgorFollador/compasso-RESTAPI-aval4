@@ -1,16 +1,22 @@
 package br.com.compasso.partidos.dto;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.compasso.partidos.constant.Ideologia;
 import br.com.compasso.partidos.entity.Associado;
 import br.com.compasso.partidos.entity.Partido;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -46,7 +52,11 @@ public class PartidoDTO {
 		return dataFundacao;
 	}
 	
-	public List<Associado> retornaAssociados() {
-		return this.associados;
+	public List<AssociadoDTO> retornaAssociados(ModelMapper mapper) {
+		List<AssociadoDTO> associados = new ArrayList<AssociadoDTO>();
+		this.associados.forEach(a -> {
+			associados.add(mapper.map(a, AssociadoDTO.class));
+		});
+		return associados;
 	}
 }

@@ -3,6 +3,7 @@ package br.com.compasso.partidos.controller;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,7 +44,7 @@ public class AssociadoController {
 	private PartidoRepository partidoRepository;
 	
 	@PostMapping
-	public ResponseEntity<AssociadoDTO> save(@RequestBody AssociadoFormDTO form) {
+	public ResponseEntity<AssociadoDTO> save(@RequestBody @Valid AssociadoFormDTO form) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(service.save(form));
 	}
@@ -55,7 +56,7 @@ public class AssociadoController {
 	}
 	
 	@PostMapping("/partidos")
-	public ResponseEntity<AssociadoDTO> bind(@RequestBody BindFormDTO form) {
+	public ResponseEntity<AssociadoDTO> bind(@RequestBody @Valid BindFormDTO form) {
 		Optional<Associado> associado = associadoRepository.findById(form.getIdAssociado());
 		Optional<Partido> partido = partidoRepository.findById(form.getIdPartido());
 		if(associado.isPresent() && partido.isPresent()) {

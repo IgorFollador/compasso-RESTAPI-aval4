@@ -14,16 +14,16 @@ import javax.validation.constraints.NotNull;
 @Data
 public class PartidoFormDTO {
 
-	@NotNull @NotEmpty
+	@NotEmpty(message = "nome is required")
 	private String nome;
 
-	@NotNull @NotEmpty
+	@NotEmpty(message = "sigla is required")
 	private String sigla;
 
-	@NotNull @NotEmpty
+	@NotNull(message = "ideologia is required")
 	@Getter private Ideologia ideologia;
 
-	@NotNull @NotEmpty
+	@NotNull(message = "dataFundacao is required")
 	@Getter private Date dataFundacao;
 
 	public void setIdeologia(String ideologiaS) {
